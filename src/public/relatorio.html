@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="images/icone3.png" type="image/png">
+    <title>Inventário Produtos Químicos</title>
+    <link rel="stylesheet" href="css/style2.css">
+    <script src="https://kit.fontawesome.com/915b45d802.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!------------------Relatórios--------------->
+<div id="header">
+    <div class="container">
+        <nav>
+            <ul id="sidemenu">
+                <img src="images/logomenu.png" class="logo">
+                </br>
+                <li><a href="Perfil.html" style="border-bottom: 1px solid;"><i class="fas fa-user"></i> Luis Gustavo</a></li>
+                </br>
+                <li><a href="MovimentacaoEstoque.html"><i class="fas fa-exchange-alt"></i> Movimentação</a></li>
+                <li><a href="Inventario.html"><i class="fas fa-boxes"></i> Inventário</a></li>
+                <li><a href="Relatorio.html"><i class="fas fa-chart-line"></i> Relatórios</a></li>
+                <li class="submenu">
+                    <a href="#"><i class="fas fa-user-shield"></i> Administração <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu-items">
+                        <li><a href="Usuarios.html"><i class="fas fa-users"></i> Usuários</a></li>
+                        <li><a href="Produtos.html"><i class="fas fa-tags"></i> Produtos</a></li>
+                        <li><a href="Laboratorio.html"><i class="fas fa-flask"></i> Laboratórios</a></li>
+                    </ul>
+                </li>
+                </br>
+                <li class="logout"><a href="index.html" style="border-top: 1px solid;"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+            </ul>
+        </nav>
+        <div id="about"> 
+            <div class="container">
+                <div class="row">
+                    <div class="about-col-2">
+                        <h1 class="sub-title">Relatórios</h1>
+                        </br>                        
+                        <div class="tab-titles">
+                            <p class="tab-links active-link" onclick="opentab('Education')">Relatório Geral</p>
+                            <p class="tab-links" onclick="opentab('Education2')">Relatório por Laboratorio</p>
+                            <p class="tab-links" onclick="opentab('Skills')">Relatórios por produto</p>
+                        </div>
+        
+                        
+                        <div class="tab-contents" id="Skills">
+                            <ul>
+                            <select name="produtos" id="produtos">
+                                <option value="acido_cloridrico">Ácido Clorídrico</option>
+                                <option value="hidroxido_sodio">Hidróxido de Sódio</option>
+                                <option value="sulfato_cobre">Sulfato de Cobre</option>
+                                <option value="nitrato_prata">Nitrato de Prata</option>
+                                <option value="peroxido_hidrogenio">Peróxido de Hidrogênio</option>
+                                <option value="acido_sulfurico">Ácido Sulfúrico</option>
+                                <option value="cloro">Cloro</option>
+                                <option value="sulfato_amonio">Sulfato de Amônio</option>
+                                <option value="hipoclorito_sodio">Hipoclorito de Sódio</option>
+                                <option value="acido_nitrico">Ácido Nítrico</option>
+                                <option value="oxido_zinco">Óxido de Zinco</option>
+                                <option value="fluoreto_sodio">Fluoreto de Sódio</option>
+                                <option value="cloreto_calcio">Cloreto de Cálcio</option>
+                                <option value="carbonato_calcio">Carbonato de Cálcio</option>
+                                <option value="hidroxido_amonio">Hidróxido de Amônio</option>
+                            </select>
+                            
+                            <select name="meses" id="meses">
+                                <option value="janeiro">Janeiro</option>
+                                <option value="fevereiro">Fevereiro</option>
+                                <option value="março">Março</option>
+                                <option value="abril">Abril</option>
+                                <option value="maio">Maio</option>
+                                <option value="junho">Junho</option>
+                                <option value="julho">Julho</option>
+                                <option value="agosto">Agosto</option>
+                                <option value="setembro">Setembro</option>
+                                <option value="outubro">Outubro</option>
+                                <option value="novembro">Novembro</option>
+                                <option value="dezembro">Dezembro</option>
+                            </select>
+
+                            <table>
+                                <tr>
+                                    <th>Produto Químico</th>
+                                    <th>Quantidade</th>
+                                    <th>Unidade</th>
+                                    <th>Laboratório</th>
+                                    <th>Consumo ou Entrada</th>
+                                </tr>
+                                <tr>
+                                    <td>Ácido Clorídrico</td>
+                                    <td>10</td>
+                                    <td>L</td>
+                                    <td>Química Física</td>
+                                    <td>Entrada</td>
+                                </tr>
+                                <tr>
+                                    <td>Ácido Clorídrico</td>
+                                    <td>5</td>
+                                    <td>L</td>
+                                    <td>Anatomia</td>
+                                    <td>Consumo</td>
+                                </tr>
+                                <tr>
+                                    <td>Ácido Clorídrico</td>
+                                    <td>3</td>
+                                    <td>L</td>
+                                    <td>Microbiologia</td>
+                                    <td>Entrada</td>
+                                </tr>
+                                <tr>
+                                    <td>Ácido Clorídrico</td>
+                                    <td>2</td>
+                                    <td>L</td>
+                                    <td>Bioquímica</td>
+                                    <td>Entrada</td>
+                                </tr>
+                                <tr>
+                                    <td>Ácido Clorídrico</td>
+                                    <td>8</td>
+                                    <td>L</td>
+                                    <td>Química Orgânica</td>
+                                    <td>Consumo</td>
+                                </tr>
+                                <tr>
+                                    <td>Ácido Clorídrico</td>
+                                    <td>8</td>
+                                    <td>L</td>
+                                    <td>Química Orgânica</td>
+                                    <td>Consumo</td>
+                                </tr>
+                                <tr>
+                                    <td>Ácido Clorídrico</td>
+                                    <td>12</td>
+                                    <td>L</td>
+                                    <td>Física</td>
+                                    <td>Entrada</td>
+                                </tr>
+                                <tr>
+                                    <td>Ácido Clorídrico</td>
+                                    <td>4</td>
+                                    <td>L</td>
+                                    <td>Genética</td>
+                                    <td>Consumo</td>
+                                </tr>
+                                <tr>
+                                    <td>Ácido Clorídrico</td>
+                                    <td>6</td>
+                                    <td>L</td>
+                                    <td>Botânica</td>
+                                    <td>Entrada</td>
+                                </tr>
+                                <tr>
+                                    <td>Ácido Clorídrico</td>
+                                    <td>3</td>
+                                    <td>L</td>
+                                    <td>Histologia</td>
+                                    <td>Entrada</td>
+                                </tr>
+                                <tr>
+                                    <td>Ácido Clorídrico</td>
+                                    <td>8</td>
+                                    <td>L</td>
+                                    <td>Farmacologia</td>
+                                    <td>Consumo</td>
+                                </tr>
+                                <tr>
+                                    <td>Ácido Clorídrico</td>
+                                    <td>10</td>
+                                    <td>L</td>
+                                    <td>Química Inorgânica</td>
+                                    <td>Consumo</td>
+                                </tr>
+                                <tr>
+                                    <td>Ácido Clorídrico</td>
+                                    <td>5</td>
+                                    <td>L</td>
+                                    <td>Patologia</td>
+                                    <td>Entrada</td>
+                                </tr>
+                            </table>
+
+
+                            <button class="print-button" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimir</button>
+
+                        </div>
+                        
+                        <div class="tab-contents  active-tab" id="Education">
+                            <select name="meses" id="meses">
+                                <option value="janeiro">Janeiro</option>
+                                <option value="fevereiro">Fevereiro</option>
+                                <option value="março">Março</option>
+                                <option value="abril">Abril</option>
+                                <option value="maio">Maio</option>
+                                <option value="junho">Junho</option>
+                                <option value="julho">Julho</option>
+                                <option value="agosto">Agosto</option>
+                                <option value="setembro">Setembro</option>
+                                <option value="outubro">Outubro</option>
+                                <option value="novembro">Novembro</option>
+                                <option value="dezembro">Dezembro</option>
+                            </select>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Produto Químico</th>
+                                        <th>Quantidade</th>
+                                        <th>Unidade</th>
+                                        <th>Tipo</th>
+                                        <th>Data</th>
+                                        <th>Laboratorio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Ácido Sulfúrico</td>
+                                        <td>1</td>
+                                        <td>Kg</td>
+                                        <td>Entrada</td>
+                                        <td>2024-05-05</td>
+                                        <td>Quimica</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hidróxido de Sódio</td>
+                                        <td>5</td>
+                                        <td>Kg</td>
+                                        <td>Saída</td>
+                                        <td>2024-05-06</td>
+                                        <td>Fisica</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ácido Clorídrico</td>
+                                        <td>8</td>
+                                        <td>Kg</td>
+                                        <td>Entrada</td>
+                                        <td>2024-05-07</td>
+                                        <td>Biologia</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ácido Sulfúrico</td>
+                                        <td>1</td>
+                                        <td>Litros</td>
+                                        <td>Entrada</td>
+                                        <td>2024-05-05</td>
+                                        <td>Biologia</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hidróxido de Sódio</td>
+                                        <td>5</td>
+                                        <td>Kg</td>
+                                        <td>Saída</td>
+                                        <td>2024-05-06</td>
+                                        <td>Matematica</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ácido Clorídrico</td>
+                                        <td>80</td>
+                                        <td>Litros</td>
+                                        <td>Entrada</td>
+                                        <td>2024-05-07</td>
+                                        <td>Quimica II</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sulfato de Cobre</td>
+                                        <td>3</td>
+                                        <td>Litros</td>
+                                        <td>Entrada</td>
+                                        <td>2024-05-08</td>
+                                        <td>Quimica</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hipoclorito de Sódio</td>
+                                        <td>6</td>
+                                        <td>Litros</td>
+                                        <td>Saída</td>
+                                        <td>2024-05-09</td>
+                                        <td>Quimica</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="print-button" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimir</button>
+
+                        </div>
+
+                        <div class="tab-contents" id="Education2">
+                            <select name="meses" id="meses">
+                                <option value="janeiro">Quimica</option>
+                                <option value="fevereiro">Fisica</option>
+                                <option value="março">Anatomia</option>
+                                <option value="abril">Biologia</option>
+                            </select>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Produto Químico</th>
+                                        <th>Quantidade</th>
+                                        <th>Unidade</th>
+                                        <th>Tipo</th>
+                                        <th>Data</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Ácido Sulfúrico</td>
+                                        <td>1</td>
+                                        <td>Kg</td>
+                                        <td>Entrada</td>
+                                        <td>2024-05-05</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hidróxido de Sódio</td>
+                                        <td>5</td>
+                                        <td>Kg</td>
+                                        <td>Saída</td>
+                                        <td>2024-05-06</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ácido Clorídrico</td>
+                                        <td>8</td>
+                                        <td>Kg</td>
+                                        <td>Entrada</td>
+                                        <td>2024-05-07</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ácido Sulfúrico</td>
+                                        <td>1</td>
+                                        <td>Litros</td>
+                                        <td>Entrada</td>
+                                        <td>2024-05-05</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sulfato de Cobre</td>
+                                        <td>3</td>
+                                        <td>Litros</td>
+                                        <td>Entrada</td>
+                                        <td>2024-05-08</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hipoclorito de Sódio</td>
+                                        <td>6</td>
+                                        <td>Litros</td>
+                                        <td>Saída</td>
+                                        <td>2024-05-09</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="print-button" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimir</button>
+
+                        </div>
+
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+<script>
+    // Pega todos os elementos com a classe "tab-links" e "tab-contents"
+    var tablinks = document.getElementsByClassName("tab-links");
+    var tabcontents = document.getElementsByClassName("tab-contents");
+    //abre uma aba específica
+    function opentab(tabname) {
+        // Loop para remover a classe "active-link" de todos os links das abas
+        for (var i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active-link");
+        }
+        // Mesma coisa da de cima só que com "active-tab" 
+        for (var i = 0; i < tabcontents.length; i++) {
+            tabcontents[i].classList.remove("active-tab");
+            // Se o id for igual ao nome da aba, adiciona a classe "active-tab" a esse trem para mostrar
+            if (tabcontents[i].id === tabname) {
+                tabcontents[i].classList.add("active-tab");
+            }
+        }
+        // Adiciona a classe "active-link" ao link da aba que foi clicada
+        event.currentTarget.classList.add("active-link");
+    }
+</script>
+
+<script>
+    document.querySelectorAll('.submenu > a').forEach(menu => {
+        menu.addEventListener('click', function(e) {
+            e.preventDefault();
+            const submenuItems = this.nextElementSibling;
+            submenuItems.classList.toggle('open');
+            this.querySelector('.fas.fa-chevron-down').classList.toggle('rotate');
+        });
+    });
+</script>
+</body>
+</html>

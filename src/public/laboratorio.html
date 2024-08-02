@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="images/icone3.png" type="image/png">
+    <title>Laboratórios</title>
+    <link rel="stylesheet" href="css/style3.css">
+    <script src="https://kit.fontawesome.com/915b45d802.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="header">
+    <div class="container">
+        <nav>
+            <ul id="sidemenu">
+                <img src="images/logomenu.png" class="logo">
+                </br>
+                <li><span id="user-name" style="border-bottom: 1px solid; display: flex; align-items: center;"><i class="fas fa-user"></i> <span id="user-name-text"></span></span></li>
+                </br>
+                <li><a href="MovimentacaoEstoque.html"><i class="fas fa-exchange-alt"></i> Movimentação</a></li>
+                <li><a href="Inventario.html"><i class="fas fa-boxes"></i> Inventário</a></li>
+                <li><a href="Relatorio.html"><i class="fas fa-chart-line"></i> Relatórios</a></li>
+                <li class="submenu">
+                    <a href="#"><i class="fas fa-user-shield"></i> Administração <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu-items">
+                        <li><a href="Usuarios.html"><i class="fas fa-users"></i> Usuários</a></li>
+                        <li><a href="Produtos.html"><i class="fas fa-tags"></i> Produtos</a></li>
+                        <li><a href="Laboratorio.html"><i class="fas fa-flask"></i> Laboratórios</a></li>
+                    </ul>
+                </li>
+                </br>
+                <li class="logout"><a href="/logout" style="border-top: 1px solid;"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+            </ul>
+        </nav>
+        <div id="about"> 
+            <div class="container">
+                <div class="row">
+                    <div class="about-col-2">
+                        <h1 class="sub-title">Laboratórios</h1>
+                        </br>                        
+                        <div class="tab-titles">
+                            <p class="tab-links active-link" onclick="opentab('todos')">Todos os Laboratórios</p>
+                            <p class="tab-links" onclick="opentab('Skills')">Adicionar Laboratório</p>
+                            <p class="tab-links" onclick="opentab('Education')">Remover Laboratório</p>
+                        </div>
+        
+                        <div class="tab-contents active-tab" id="todos">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nome do Laboratório</th>
+                                        <th>Responsável</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="laboratorio-tbody">
+                                    <!-- Linhas serão preenchidas -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-contents" id="Skills">
+                            <div class="form-container">
+                                <h2>Adicionar Laboratório</h2>
+                                </br>
+                                <form id="add-laboratorio-form">
+                                    <div class="form-group">
+                                        <label for="nome_laboratorio">Nome do Laboratório:</label>
+                                        <input type="text" id="nome_laboratorio" name="nome_laboratorio" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="usuarios">Selecione um usuário:</label>
+                                        <select id="usuarios-select" name="usuarios">
+                                            <!-- Opções serão preenchidas -->
+                                        </select>
+                                    </div>
+                                    <button type="submit">Adicionar Laboratório</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-contents" id="Education">
+                            <div class="form-container">
+                                <h1>Remover Laboratório</h1>
+                                </br>
+                                </br>
+                                <form id="remove-laboratorio-form">
+                                    <label for="laboratorios">Selecione um laboratório:</label>
+                                    <select id="laboratorios" name="laboratorios">
+                                        <!-- Opções serão preenchidas -->
+                                    </select>                                    
+                                    </br></br></br>
+                                    <button type="submit" class="btn-remover">Remover Laboratório</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+
+<script>
+    // Função para abrir abas
+    function opentab(tabname) {
+        var tablinks = document.getElementsByClassName("tab-links");
+        var tabcontents = document.getElementsByClassName("tab-contents");
+
+        for (var i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active-link");
+        }
+        for (var i = 0; i < tabcontents.length; i++) {
+            tabcontents[i].classList.remove("active-tab");
+            if (tabcontents[i].id === tabname) {
+                tabcontents[i].classList.add("active-tab");
+            }
+        }
+        event.currentTarget.classList.add("active-link");
+    }
+
+    // Pegar dados de laboratórios da API e preencher a tabela e o select
+    function loadLaboratorios() {
+        fetch('/api/laboratorios')
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('laboratorio-tbody');
+                const select = document.getElementById('laboratorios');
+                tbody.innerHTML = ''; // Limpar a tabela
+                select.innerHTML = ''; // Limpar o select
+                data.forEach(laboratorio => {
+                    // Adicionar à tabela
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${laboratorio.nome_laboratorio}</td>
+                        <td>${laboratorio.responsavel || 'N/A'}</td>
+                        <td>${laboratorio.email || 'N/A'}</td>
+                    `;
+                    tbody.appendChild(tr);
+
+                    // Adicionar ao select
+                    const option = document.createElement('option');
+                    option.value = laboratorio.id_laboratorio;
+                    option.textContent = laboratorio.nome_laboratorio;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Erro ao carregar laboratórios:', error));
+    }
+
+    // Carregar laboratórios e nome do usuário logado ao inicializar a página
+    document.addEventListener('DOMContentLoaded', function() {
+        loadLaboratorios();
+        loadLoggedInUser();
+    });
+
+    // Pegar dados de usuários da API e preencher o select para adicionar laboratório
+    fetch('/api/usuarios')
+        .then(response => response.json())
+        .then(data => {
+            const select = document.getElementById('usuarios-select');
+            data.forEach(usuario => {
+                const option = document.createElement('option');
+                option.value = usuario.email;
+                option.textContent = usuario.email;
+                select.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Erro ao carregar usuários:', error));
+
+    // Adicionar novo laboratório
+    document.getElementById('add-laboratorio-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const nomeLaboratorio = document.getElementById('nome_laboratorio').value;
+        const usuarioEmail = document.getElementById('usuarios-select').value;
+
+        console.log('Nome do Laboratório:', nomeLaboratorio);
+        console.log('Email do Usuário:', usuarioEmail);
+
+        fetch('/api/laboratorios', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nome_laboratorio: nomeLaboratorio, usuario_email: usuarioEmail })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Resposta do Servidor:', data);
+
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(data.message);
+
+                // Adicionar o novo laboratório na tabela
+                const tbody = document.getElementById('laboratorio-tbody');
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${nomeLaboratorio}</td>
+                    <td>${usuarioEmail}</td>
+                `;
+                tbody.appendChild(tr);
+
+                // Adicionar o novo laboratório no select para remoção
+                const select = document.getElementById('laboratorios');
+                const option = document.createElement('option');
+                option.value = data.id_laboratorio;
+                option.textContent = nomeLaboratorio;
+                select.appendChild(option);
+
+                // Limpar o formulário
+                document.getElementById('add-laboratorio-form').reset();
+            }
+        })
+        .catch(error => console.error('Erro ao adicionar laboratório:', error));
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+    // Carregar os laboratórios no select
+    function loadLaboratorios() {
+        fetch('/api/laboratorios')
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById('laboratorios');
+                select.innerHTML = ''; // Limpar o select
+                data.forEach(laboratorio => {
+                    const option = document.createElement('option');
+                    option.value = laboratorio.id_laboratorio; // Usar id_laboratorio como valor
+                    option.textContent = laboratorio.nome_laboratorio; // Usar nome_laboratorio como texto
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Erro ao carregar laboratórios:', error));
+    }
+    // Carregar laboratórios ao inicializar a página
+    loadLaboratorios();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Carregar os laboratórios no select
+    function loadLaboratorios() {
+        fetch('/api/laboratorios')
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById('laboratorios');
+                select.innerHTML = ''; // Limpar o select
+                console.log(data); // Verifique os dados recebidos
+                data.forEach(laboratorio => {
+                    const option = document.createElement('option');
+                    option.value = laboratorio.id_laboratorio; // Usar id_laboratorio como valor
+                    option.textContent = laboratorio.nome_laboratorio; // Usar nome_laboratorio como texto
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Erro ao carregar laboratórios:', error));
+    }
+
+    // Remover laboratório
+    document.getElementById('remove-laboratorio-form').addEventListener('submit', function(event) {
+
+        event.preventDefault();
+
+        const selectElement = document.getElementById('laboratorios');
+        const idLaboratorio = selectElement.value;
+
+        console.log('ID do Laboratório:', idLaboratorio); // Verifique o valor aqui
+
+        if (!idLaboratorio) {
+            alert('Por favor, selecione um laboratório.');
+            return;
+        }
+
+        fetch(`/api/laboratorios/${idLaboratorio}`, {
+            method: 'DELETE',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(data.message);
+
+                // Recarregar a lista de laboratórios
+                loadLaboratorios();
+            }
+        })
+        .catch(error => console.error('Erro ao remover laboratório:', error));
+    });
+
+    // Carregar laboratórios ao inicializar a página
+    loadLaboratorios();
+});
+
+
+
+
+    // Pegar o nome do usuário logado
+    function loadLoggedInUser() {
+        fetch('/api/usuario-logado')
+            .then(response => response.json())
+            .then(data => {
+                const userNameElement = document.getElementById('user-name-text');
+                userNameElement.textContent = data.nome || 'Usuário Desconhecido';
+            })
+            .catch(error => console.error('Erro ao carregar usuário logado:', error));
+    }
+
+    // Coisa legal do submenu
+    document.querySelectorAll('.submenu > a').forEach(menu => {
+        menu.addEventListener('click', function(e) {
+            e.preventDefault();
+            const submenuItems = this.nextElementSibling;
+            submenuItems.classList.toggle('open');
+            this.querySelector('.fas.fa-chevron-down').classList.toggle('rotate');
+        });
+    });
+</script>
+
+</body>
+</html>

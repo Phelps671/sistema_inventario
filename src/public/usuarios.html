@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="images/icone3.png" type="image/png">
+    <title>Inventário Produtos Químicos</title>
+    <link rel="stylesheet" href="css/style3.css">
+    <script src="https://kit.fontawesome.com/915b45d802.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!------------------Usuarios--------------->
+<div id="header">
+    <div class="container">
+        <nav>
+            <ul id="sidemenu">
+                <img src="images/logomenu.png" class="logo">
+                </br>
+                <li><span id="user-name" style="border-bottom: 1px solid; display: flex; align-items: center;"><i class="fas fa-user"></i> <span id="user-name-text"></span></span></li>
+                </br>
+                <li><a href="MovimentacaoEstoque.html"><i class="fas fa-exchange-alt"></i> Movimentação</a></li>
+                <li><a href="Inventario.html"><i class="fas fa-boxes"></i> Inventário</a></li>
+                <li><a href="Relatorio.html"><i class="fas fa-chart-line"></i> Relatórios</a></li>
+                <li class="submenu">
+                    <a href="#"><i class="fas fa-user-shield"></i> Administração <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu-items">
+                        <li><a href="Usuarios.html"><i class="fas fa-users"></i> Usuários</a></li>
+                        <li><a href="Produtos.html"><i class="fas fa-tags"></i> Produtos</a></li>
+                        <li><a href="Laboratorio.html"><i class="fas fa-flask"></i> Laboratórios</a></li>
+                    </ul>
+                </li>
+                </br>
+                <li class="logout"><a href="/logout" style="border-top: 1px solid;"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+            </ul>
+        </nav>
+        <div id="about"> 
+            <div class="container">
+                <div class="row">
+                    <div class="about-col-2">
+                        <h1 class="sub-title">Usuários</h1>
+                        </br>                        
+                        <div class="tab-titles">
+                            <p class="tab-links active-link" onclick="opentab('todos')">Todos os Usuários</p>
+                            <p class="tab-links" onclick="opentab('addUser')">Adicionar Usuário</p>
+                            <p class="tab-links" onclick="opentab('removeUser')">Remover Usuário</p>
+                        </div>
+        
+                        <div class="tab-contents active-tab" id="todos">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usuarios-tbody">
+                                    <!-- Linhas serão preenchidas -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="tab-contents" id="addUser">
+                            <div class="form-container">
+                                <h2>Adicionar Usuário</h2>
+                                </br>
+                                <form id="add-user-form">
+                                    <div class="form-group">
+                                        <label for="username">Nome de Usuário:</label>
+                                        <input type="text" id="username" name="username" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email:</label>
+                                        <input type="email" id="email" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Senha:</label>
+                                        <input type="password" id="password" name="password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirm-password">Confirmar Senha:</label>
+                                        <input type="password" id="confirm-password" name="confirm-password" required>
+                                    </div>
+                                    <button type="submit">Adicionar Usuário</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="tab-contents" id="removeUser">
+                            <div class="form-container">
+                                <h1>Remover Usuário</h1>
+                                </br>
+                                </br>
+                                <form id="remove-user-form">
+                                    <label for="usuarios">Selecione um usuário:</label>
+                                    <select id="usuarios-select" name="usuarios">
+                                        <!-- Opções serão preenchidas -->
+                                    </select>
+                                    </br></br></br>
+                                    <button type="submit" class="btn-remover">Remover Usuário</button>
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+
+<script>
+    // Abre uma aba específica
+    function opentab(tabname) {
+        var tablinks = document.getElementsByClassName("tab-links");
+        var tabcontents = document.getElementsByClassName("tab-contents");
+
+        // Remove a classe "active-link" de todos os links das abas
+        Array.from(tablinks).forEach(link => link.classList.remove("active-link"));
+        
+        // Remove a classe "active-tab" de todos os conteúdos das abas
+        Array.from(tabcontents).forEach(content => {
+            content.classList.remove("active-tab");
+            if (content.id === tabname) {
+                content.classList.add("active-tab");
+            }
+        });
+
+        // Adiciona a classe "active-link" ao link da aba que foi clicada
+        event.currentTarget.classList.add("active-link");
+    }
+
+    // Pegar dados de usuários da API e preencher a tabela e o select
+    function loadUsers() {
+        fetch('/api/usuarios')
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('usuarios-tbody');
+                const select = document.getElementById('usuarios-select');
+                
+                data.forEach(usuario => {
+                    // Preencher a tabela
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${usuario.nome_usuario}</td>
+                        <td>${usuario.email}</td>
+                    `;
+                    tbody.appendChild(tr);
+
+                    // Preencher o select para remoção de usuários
+                    const option = document.createElement('option');
+                    option.value = usuario.email;
+                    option.textContent = usuario.nome_usuario;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Erro ao carregar usuários:', error));
+    }
+
+    // Pegar o nome do usuário logado
+    function loadLoggedInUser() {
+        fetch('/api/usuario-logado')
+            .then(response => response.json())
+            .then(data => {
+                const userNameElement = document.getElementById('user-name');
+                userNameElement.innerHTML = `<i class="fas fa-user"></i> ${data.nome}`;
+            })
+            .catch(error => console.error('Erro ao carregar usuário logado:', error));
+    }
+
+    // Adicionar novo usuário
+    document.getElementById('add-user-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+
+        if (password !== confirmPassword) {
+            alert('As senhas não coincidem!');
+            return;
+        }
+
+        fetch('/api/usuarios', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nome_usuario: username, email: email, password: password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(data.message);
+
+                // Adicionar o novo usuário na tabela
+                const tbody = document.getElementById('usuarios-tbody');
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${username}</td>
+                    <td>${email}</td>
+                `;
+                tbody.appendChild(tr);
+
+                // Adicionar o novo usuário no select para remoção
+                const select = document.getElementById('usuarios-select');
+                const option = document.createElement('option');
+                option.value = email;
+                option.textContent = username;
+                select.appendChild(option);
+
+                // Limpar o formulário
+                document.getElementById('add-user-form').reset();
+            }
+        })
+        .catch(error => console.error('Erro ao adicionar usuário:', error));
+    });
+
+    // Remover usuário
+    document.getElementById('remove-user-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById('usuarios-select').value;
+
+        fetch(`/api/usuarios/${email}`, {
+            method: 'DELETE',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(data.message);
+
+                // Remover o usuário da tabela
+                const rows = document.querySelectorAll(`#usuarios-tbody tr`);
+                rows.forEach(row => {
+                    if (row.cells[1].textContent === email) {
+                        row.remove();
+                    }
+                });
+
+                // Remover o usuário do select
+                const options = document.querySelectorAll(`#usuarios-select option`);
+                options.forEach(option => {
+                    if (option.value === email) {
+                        option.remove();
+                    }
+                });
+
+                // Limpar o formulário
+                document.getElementById('remove-user-form').reset();
+            }
+        })
+        .catch(error => console.error('Erro ao remover usuário:', error));
+    });
+
+    // Inicializar as funções
+    document.addEventListener('DOMContentLoaded', function() {
+        loadUsers();
+        loadLoggedInUser();
+    });
+
+    // Coisa legal do submenu
+    document.querySelectorAll('.submenu > a').forEach(menu => {
+        menu.addEventListener('click', function(e) {
+            e.preventDefault();
+            const submenuItems = this.nextElementSibling;
+            submenuItems.classList.toggle('open');
+            this.querySelector('.fas.fa-chevron-down').classList.toggle('rotate');
+        });
+    });
+</script>
+</body>
+</html>

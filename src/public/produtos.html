@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="images/icone3.png" type="image/png">
+    <title>Produtos</title>
+    <link rel="stylesheet" href="css/style3.css">
+    <script src="https://kit.fontawesome.com/915b45d802.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="header">
+    <div class="container">
+        <nav>
+            <ul id="sidemenu">
+                <img src="images/logomenu.png" class="logo">
+                </br>
+                <li><span id="user-name" style="border-bottom: 1px solid; display: flex; align-items: center;"><i class="fas fa-user"></i> <span id="user-name-text"></span></span></li>
+                </br>
+                <li><a href="MovimentacaoEstoque.html"><i class="fas fa-exchange-alt"></i> Movimentação</a></li>
+                <li><a href="Inventario.html"><i class="fas fa-boxes"></i> Inventário</a></li>
+                <li><a href="Relatorio.html"><i class="fas fa-chart-line"></i> Relatórios</a></li>
+                <li class="submenu">
+                    <a href="#"><i class="fas fa-user-shield"></i> Administração <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu-items">
+                        <li><a href="Usuarios.html"><i class="fas fa-users"></i> Usuários</a></li>
+                        <li><a href="Produtos.html"><i class="fas fa-tags"></i> Produtos</a></li>
+                        <li><a href="Laboratorio.html"><i class="fas fa-flask"></i> Laboratórios</a></li>
+                    </ul>
+                </li>
+                </br>
+                <li class="logout"><a href="/logout" style="border-top: 1px solid;"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+            </ul>
+        </nav>
+        <div id="about"> 
+            <div class="container">
+                <div class="row">
+                    <div class="about-col-2">
+                        <h1 class="sub-title">Produtos</h1>
+                        </br>                        
+                        <div class="tab-titles">
+                            <p class="tab-links active-link" onclick="opentab('todos')">Todos os Produtos</p>
+                            <p class="tab-links" onclick="opentab('Skills')">Adicionar Produto</p>
+                            <p class="tab-links" onclick="opentab('Education')">Remover Produto</p>
+                        </div>
+        
+                        <div class="tab-contents active-tab" id="todos">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome do Produto</th>
+                                        <th>Unidade de Medida</th>
+                                        <th>Descrição</th>
+                                        <th>NCM</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="produto-tbody">
+                                    <!-- Linhas serão preenchidas dinamicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-contents" id="Skills">
+                            <div class="form-container">
+                                <h2>Adicionar Produto</h2>
+                                <br>
+                                <form id="add-product-form">
+                                    <div class="form-group">
+                                        <label for="nome_produto">Nome do Produto:</label>
+                                        <input type="text" id="nome_produto" name="nome_produto" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="unidade_produto">Unidade de Medida:</label>
+                                        <select id="unidade_produto" name="unidade_produto" required>
+                                            <option value="kilos">Kilos</option>
+                                            <option value="litros">Litros</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="descricao_produto">Descrição:</label>
+                                        <input type="text" id="descricao_produto" name="descricao_produto" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="NCM">NCM:</label>
+                                        <input type="text" id="NCM" name="NCM" required>
+                                    </div>
+                                    <button type="submit">Adicionar Produto</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-contents" id="Education">
+                            <div class="form-container">
+                                <h1>Remover Produto</h1>
+                                <br>
+                                <br>
+                                <form id="remove-product-form">
+                                    <label for="produtos-select">Selecione um produto:</label>
+                                    <select id="produtos-select" name="produtos">
+                                        <!-- Opções serão preenchidas dinamicamente -->
+                                    </select>
+                                    <br><br><br>
+                                    <button type="submit" class="btn-remover">Remover Produto</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+
+<script>
+    // Função para abrir abas
+    function opentab(tabname) {
+        var tablinks = document.getElementsByClassName("tab-links");
+        var tabcontents = document.getElementsByClassName("tab-contents");
+
+        for (var i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active-link");
+        }
+        for (var i = 0; i < tabcontents.length; i++) {
+            tabcontents[i].classList.remove("active-tab");
+            if (tabcontents[i].id === tabname) {
+                tabcontents[i].classList.add("active-tab");
+            }
+        }
+        event.currentTarget.classList.add("active-link");
+    }
+
+    // Carregar dados de produtos e preencher a tabela
+    function loadProdutos() {
+        fetch('/api/produto')
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('produto-tbody');
+                const select = document.getElementById('produtos-select');
+                tbody.innerHTML = ''; // Limpa a tabela antes de repopular
+                select.innerHTML = ''; // Limpa o select antes de repopular
+                data.forEach(produto => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${produto.id_produto}</td>
+                        <td>${produto.nome_produto || 'N/A'}</td>
+                        <td>${produto.unidade_produto || 'N/A'}</td>
+                        <td>${produto.descricao_produto || 'N/A'}</td>
+                        <td>${produto.NCM || 'N/A'}</td>
+                    `;
+                    tbody.appendChild(tr);
+
+                    const option = document.createElement('option');
+                    option.value = produto.id_produto;
+                    option.textContent = produto.nome_produto;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Erro ao carregar produtos:', error));
+    }
+
+    // Carregar produtos e nome do usuário logado ao inicializar a página
+    document.addEventListener('DOMContentLoaded', function() {
+        loadProdutos();
+        loadLoggedInUser();
+    });
+
+    // Adicionar novo produto
+    document.getElementById('add-product-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const nomeProduto = document.getElementById('nome_produto').value;
+        const unidadeProduto = document.getElementById('unidade_produto').value;
+        const descricaoProduto = document.getElementById('descricao_produto').value;
+        const ncm = document.getElementById('NCM').value;
+
+        fetch('/api/produto', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nome_produto: nomeProduto, unidade_produto: unidadeProduto, descricao_produto: descricaoProduto, NCM: ncm })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(data.message);
+                loadProdutos(); // Recarregar produtos após adicionar
+                document.getElementById('add-product-form').reset();
+            }
+        })
+        .catch(error => console.error('Erro ao adicionar produto:', error));
+    });
+
+    // Remover produto
+    document.getElementById('remove-product-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const idProduto = document.getElementById('produtos-select').value;
+
+        fetch(`/api/produto/${idProduto}`, {
+            method: 'DELETE',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(data.message);
+                loadProdutos(); // Recarregar produtos após remover
+                document.getElementById('remove-product-form').reset();
+            }
+        })
+        .catch(error => console.error('Erro ao remover produto:', error));
+    });
+
+    // Manipular submenu
+    document.querySelectorAll('.submenu > a').forEach(menu => {
+        menu.addEventListener('click', function(e) {
+            e.preventDefault();
+            const submenuItems = this.nextElementSibling;
+            submenuItems.classList.toggle('open');
+            this.querySelector('.fas.fa-chevron-down').classList.toggle('rotate');
+        });
+    });
+
+    // Pegar o nome do usuário logado
+    function loadLoggedInUser() {
+        fetch('/api/usuario-logado')
+            .then(response => response.json())
+            .then(data => {
+                const userNameElement = document.getElementById('user-name');
+                userNameElement.innerHTML = `<i class="fas fa-user"></i> ${data.nome}`;
+            })
+            .catch(error => console.error('Erro ao carregar usuário logado:', error));
+    }
+</script>
+
+</body>
+</html>

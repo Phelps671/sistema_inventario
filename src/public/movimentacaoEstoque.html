@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="images/icone3.png" type="image/png">
+    <title>Inventário Produtos Químicos</title>
+    <link rel="stylesheet" href="css/style3.css">
+    <script src="https://kit.fontawesome.com/915b45d802.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!------------------Produtos--------------->
+<div id="header">
+    <div class="container">
+        <nav>
+            <ul id="sidemenu">
+                <img src="images/logomenu.png" class="logo">
+                </br>
+                <li><a href="Perfil.html" style="border-bottom: 1px solid;"><i class="fas fa-user"></i> Luis Gustavo</a></li>
+                </br>
+                <li><a href="MovimentacaoEstoque.html"><i class="fas fa-exchange-alt"></i> Movimentação</a></li>
+                <li><a href="Inventario.html"><i class="fas fa-boxes"></i> Inventário</a></li>
+                <li><a href="Relatorio.html"><i class="fas fa-chart-line"></i> Relatórios</a></li>
+                <li class="submenu">
+                    <a href="#"><i class="fas fa-user-shield"></i> Administração <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu-items">
+                        <li><a href="Usuarios.html"><i class="fas fa-users"></i> Usuários</a></li>
+                        <li><a href="Produtos.html"><i class="fas fa-tags"></i> Produtos</a></li>
+                        <li><a href="Laboratorio.html"><i class="fas fa-flask"></i> Laboratórios</a></li>
+                    </ul>
+                </li>
+                </br>
+                <li class="logout"><a href="index.html" style="border-top: 1px solid;"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+            </ul>
+        </nav>
+        <div id="about"> 
+            <div class="container">
+                <div class="row">
+                    <div class="about-col-2">
+                        <h1 class="sub-title">Movimentação</h1>
+                        </br>                        
+                        <div class="tab-titles">
+                            <p class="tab-links active-link" onclick="opentab('Skills')" >Consumo de Produto</p>
+                            <p class="tab-links" onclick="opentab('Education')">Entrada de Produto</p>
+                        </div>
+        
+                        <div class="tab-contents  active-tab" id="Skills">
+                            <div class="form-container">
+                                <h1>Registrar Consumo</h1>
+                            </br>
+                                <form id="add-produto">
+                                    <form action="processar_adicao.php" method="POST"> 
+                                        <div class="form-group">
+                                            <label for="id_pf">Produto:</label>
+                                            <select name="produtos" id="produtos">
+                                            <option value="acido_cloridrico">Ácido Clorídrico</option>
+                                            <option value="hidroxido_sodio">Hidróxido de Sódio</option>
+                                            <option value="sulfato_cobre">Sulfato de Cobre</option>
+                                            <option value="nitrato_prata">Nitrato de Prata</option>
+                                            <option value="peroxido_hidrogenio">Peróxido de Hidrogênio</option>
+                                            <option value="acido_sulfurico">Ácido Sulfúrico</option>
+                                            <option value="cloro">Cloro</option>
+                                            <option value="sulfato_amonio">Sulfato de Amônio</option>
+                                            <option value="hipoclorito_sodio">Hipoclorito de Sódio</option>
+                                            <option value="acido_nitrico">Ácido Nítrico</option>
+                                            <option value="oxido_zinco">Óxido de Zinco</option>
+                                            <option value="fluoreto_sodio">Fluoreto de Sódio</option>
+                                            <option value="cloreto_calcio">Cloreto de Cálcio</option>
+                                            <option value="carbonato_calcio">Carbonato de Cálcio</option>
+                                            <option value="hidroxido_amonio">Hidróxido de Amônio</option>
+                                        </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_pf">Quantidade:</label>
+                                            <input type="text" id="id_pf" name="id_pf" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_pf">Laboratorio:</label>
+                                            <select name="produtos" id="produtos">
+                                            <option value="acido_cloridrico">Quimica</option>
+                                            <option value="hidroxido_sodio">Fisica</option>
+                                            <option value="sulfato_cobre">Anatomia</option>
+                                            <option value="nitrato_prata">Biologia</option>
+                                        </select>
+                                        </div>
+                                        <button type="submit">Registrar</button>
+                                </form>
+                            </div>
+                            
+                        </div>
+                        <div class="tab-contents" id="Education">
+                            <div class="form-container">
+                                <h1>Registrar Entrada</h1>
+                            </br>
+                            <form id="add-produto">
+                                <form action="processar_adicao.php" method="POST"> 
+                                    <div class="form-group">
+                                        <label for="id_pf">Produto:</label>
+                                        <select name="produtos" id="produtos">
+                                        <option value="acido_cloridrico">Ácido Clorídrico</option>
+                                        <option value="hidroxido_sodio">Hidróxido de Sódio</option>
+                                        <option value="sulfato_cobre">Sulfato de Cobre</option>
+                                        <option value="nitrato_prata">Nitrato de Prata</option>
+                                        <option value="peroxido_hidrogenio">Peróxido de Hidrogênio</option>
+                                        <option value="acido_sulfurico">Ácido Sulfúrico</option>
+                                        <option value="cloro">Cloro</option>
+                                        <option value="sulfato_amonio">Sulfato de Amônio</option>
+                                        <option value="hipoclorito_sodio">Hipoclorito de Sódio</option>
+                                        <option value="acido_nitrico">Ácido Nítrico</option>
+                                        <option value="oxido_zinco">Óxido de Zinco</option>
+                                        <option value="fluoreto_sodio">Fluoreto de Sódio</option>
+                                        <option value="cloreto_calcio">Cloreto de Cálcio</option>
+                                        <option value="carbonato_calcio">Carbonato de Cálcio</option>
+                                        <option value="hidroxido_amonio">Hidróxido de Amônio</option>
+                                    </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_pf">Quantidade:</label>
+                                        <input type="text" id="id_pf" name="id_pf" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_pf">Laboratorio:</label>
+                                        <select name="produtos" id="produtos">
+                                        <option value="acido_cloridrico">Quimica</option>
+                                        <option value="hidroxido_sodio">Fisica</option>
+                                        <option value="sulfato_cobre">Anatomia</option>
+                                        <option value="nitrato_prata">Biologia</option>
+                                    </select>
+                                    </div>
+                                    <button type="submit">Registrar</button>
+                            </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+<script>
+    // Pega todos os elementos com a classe "tab-links" e "tab-contents"
+    var tablinks = document.getElementsByClassName("tab-links");
+    var tabcontents = document.getElementsByClassName("tab-contents");
+    //abre uma aba específica
+    function opentab(tabname) {
+        // Loop para remover a classe "active-link" de todos os links das abas
+        for (var i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active-link");
+        }
+        // Mesma coisa da de cima só que com "active-tab" 
+        for (var i = 0; i < tabcontents.length; i++) {
+            tabcontents[i].classList.remove("active-tab");
+            // Se o id for igual ao nome da aba, adiciona a classe "active-tab" a esse trem para mostrar
+            if (tabcontents[i].id === tabname) {
+                tabcontents[i].classList.add("active-tab");
+            }
+        }
+        // Adiciona a classe "active-link" ao link da aba que foi clicada
+        event.currentTarget.classList.add("active-link");
+    }
+</script>
+
+<script>
+    document.querySelectorAll('.submenu > a').forEach(menu => {
+        menu.addEventListener('click', function(e) {
+            e.preventDefault();
+            const submenuItems = this.nextElementSibling;
+            submenuItems.classList.toggle('open');
+            this.querySelector('.fas.fa-chevron-down').classList.toggle('rotate');
+        });
+    });
+</script>
+</body>
+</html>
